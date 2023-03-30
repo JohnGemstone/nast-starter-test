@@ -1,5 +1,5 @@
 import { Raleway } from 'next/font/google';
-import "../../sanity/customStyles.css";
+import "@/sanity/customStyles.css";
 import type {PropsWithChildren} from "react";
 import { Metadata } from 'next';
 
