@@ -6,27 +6,9 @@ import { SlugInputFix } from "@/sanity/components/SlugInputFix";
 import { TitleWithSuffix } from "@/sanity/components/TitleWithSuffix";
 import { HeaderBlockEditor } from "@/sanity/schemas/objects/editors";
 
-const pageBuilder = defineField({
-  name: "pageBuilder",
-  title: "Page Builder",
-  type: "array",
-  group: "content",
-  description: "Add content to the page.",
-  of: [
-    { type: "accordionWithImage" },
-    { type: "keyFeaturesCard" },
-    { type: "accordionCenter" },
-    { type: "logoCarousel" },
-    { type: "testimonial" },
-    { type: "threeFeatures" },
-    { type: "bannerCaseStudy" },
-    { type: "bookDemo" },
-    { type: "relatedSection" },
-    { type: "featureSection" },
-    { type: "bannerSimple" },
-    { type: "twoColumn" },
-  ],
-});
+import * as pageBuilder from '@/sanity/schemas/pageBuilder'
+
+const pageBuilderTypes = Object.values(pageBuilder).map((type) => {return {type: type.name}});
 
 export const product = defineType({
   name: "product",
@@ -208,9 +190,15 @@ export const product = defineType({
           //   fields.showFeatures && fields.length < 3 ? 'Must have at least 3 features' : true
           // )),
         }),
+
       ],
     }),
-    pageBuilder,
+    defineField({
+      name: "pageBuilder",
+      title: "Page Builder",
+      type: "array",
+      of: [...pageBuilderTypes]
+    }),
     // defineField({
     //   name: "featuredCaseStudy",
     //   title: "Featured Case Study",

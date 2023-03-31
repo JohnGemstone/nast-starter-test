@@ -1,8 +1,9 @@
 import { defineField, defineType, defineArrayMember } from "@sanity/types";
 import { IoDocumentTextOutline } from "react-icons/io5";
 
+
 export const blogPost = defineType({
-  name: "post",
+  name: "blogPost",
   type: "document",
   title: "Blog Post",
   icon: IoDocumentTextOutline,
