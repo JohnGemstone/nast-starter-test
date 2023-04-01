@@ -17,7 +17,7 @@ import { defineConfig, isDev } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { homePage } from '@/sanity/schemas/singletons/home'
 import { navigation } from '@/sanity/schemas/singletons/navigation'
-import { product } from '@/sanity/schemas/documents/product'
+import { service } from '@/sanity/schemas/documents/service'
 import { blogPost } from '@/sanity/schemas/documents/blogpost'
 
 import * as pageBuilder from '@/sanity/schemas/pageBuilder'
@@ -26,7 +26,7 @@ import * as pageBuilder from '@/sanity/schemas/pageBuilder'
 const title = 'Sanity Studio'
 
 export const PREVIEWABLE_DOCUMENT_TYPES: string[] = [
-  product.name,
+  service.name,
   blogPost.name,
 ]
 
@@ -44,7 +44,7 @@ export default defineConfig({
       navigation,
 
       // pages
-      product,
+      service,
       blogPost,
 
       //objects

@@ -7,12 +7,13 @@ import { TitleWithSuffix } from "@/sanity/components/TitleWithSuffix";
 import { HeaderBlockEditor } from "@/sanity/schemas/objects/editors";
 
 import * as pageBuilder from '@/sanity/schemas/pageBuilder'
+import { siteName } from "@/data/globals";
 
 const pageBuilderTypes = Object.values(pageBuilder).map((type) => {return {type: type.name}});
 
-export const product = defineType({
-  name: "product",
-  title: "Product",
+export const service = defineType({
+  name: "service",
+  title: "Service",
   type: "document",
   icon: FiPackage,
   groups: [
@@ -42,7 +43,7 @@ export const product = defineType({
         source: "name",
         maxLength: 30,
         //@ts-expect-error
-        urlPrefix: "lcdshowcase.uk/products/",
+        urlPrefix: siteName,
       },
       group: "seo",
       validation: (Rule) => Rule.required(),
@@ -121,76 +122,6 @@ export const product = defineType({
             "Text for the CTA button. Defaults to 'Start Your Project'",
           initialValue: "Start Your Project",
         }),
-        defineField({
-          name: "showFeatures",
-          title: "Show Features",
-          type: "boolean",
-          description: "Show a features section below the header.",
-          initialValue: false,
-        }),
-        defineField({
-          name: "features",
-          title: "Features",
-          type: "array",
-          of: [
-            defineArrayMember({
-              title: "Feature",
-              name: "feature",
-              type: "object",
-              fields: [
-                defineField({
-                  title: "Icon",
-                  name: "icon",
-                  type: "iconPicker",
-                  preview: {
-                    select: {
-                      provider: "icon.provider",
-                      name: "icon.name",
-                    },
-                    prepare(icon) {
-                      return {
-                        title: icon.provider,
-                        subtitle: icon.name,
-                      };
-                    },
-                  },
-                }),
-                defineField({
-                  title: "Name",
-                  name: "name",
-                  type: "string",
-                }),
-                defineField({
-                  title: "Description",
-                  name: "description",
-                  type: "text",
-                  rows: 3,
-                }),
-              ],
-              preview: {
-                select: {
-                  name: "name",
-                  description: "description",
-                  // icon: "icon",
-                },
-                prepare(selection) {
-                  const { name, description } = selection;
-                  return {
-                    title: name,
-                    subtitle: description,
-                    // media: preview(icon),
-                  };
-                },
-              },
-            }),
-          ],
-          description: "Features to show in the features section.",
-          hidden: ({ parent }) => !parent?.showFeatures,
-          // validation: (Rule) => Rule.custom(({fields}:CustomRuleCallback)=>(
-          //   fields.showFeatures && fields.length < 3 ? 'Must have at least 3 features' : true
-          // )),
-        }),
-
       ],
     }),
     defineField({

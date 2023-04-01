@@ -4,7 +4,9 @@ Bootstrapped using create-next-app
 ## Getting Started
 Create
 
-
+## Things to update
+src/data/globals.ts
+favicon
 
 ## Running Dev Server
 

@@ -57,16 +57,6 @@ export const blogPost = defineType({
       group: ["content"],
     }),
 
-    defineField({
-      name: "tags",
-      title: "Tags",
-      type: "tags",
-      options: {
-        includeFromRelated: 'tags',
-      },
-      group: ["content"],
-    }),
-
 
     defineField({
       name: "headerImage",

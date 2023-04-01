@@ -1,12 +1,12 @@
 import { TextInput, Flex, Box, Card, Code } from "@sanity/ui";
 import { useCallback } from "react";
 import { StringInputProps, set, unset } from "sanity";
-
+import { siteName } from "@/data/globals";
 
 export const TitleWithSuffix = (props: StringInputProps) => {
   const { elementProps, onChange, value = "" } = props;
 
-  const suffix = " | LCD Showcase";
+  const suffix = " | " + siteName;
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>

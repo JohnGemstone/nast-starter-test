@@ -5,9 +5,9 @@ if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
   )
 }
 
-if (!process.env.NEXT_PUBLIC_SANITY_DATASET2) {
+if (!process.env.NEXT_PUBLIC_SANITY_DATASET) {
   throw new Error(
-    'Missing the NEXT_PUBLIC_SANITY_DATASET2 environment variable. Please add it to your .env.local file.'
+    'Missing the NEXT_PUBLIC_SANITY_DATASET environment variable. Please add it to your .env.local file.'
   )
 }
 
@@ -20,7 +20,7 @@ export const useCdn = process.env.NODE_ENV === 'production'
  */
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET2
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
 
 // see https://www.sanity.io/docs/api-versioning for how versioning works
 export const apiVersion =
