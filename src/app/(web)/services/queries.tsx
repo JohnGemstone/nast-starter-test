@@ -3,58 +3,26 @@ import { q, TypeFromSelection } from "groqd";
 import { QueryParams } from "sanity";
 import z from "zod";
 
-const caseStudyContent = {
-  logo: q.sanityImage("logo", {
-    withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-  }),
-  headerImage: q.sanityImage("headerImage", {
-    withHotspot: true,
-    additionalFields: { alt: q.string().nullable() },
-    withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-  }),
-  sectorTag: q.string().optional().nullable(),
-  productTags: q("productTags")
-    .filter()
-    .deref()
-    .grab({
-      slug: q.slug("slug"),
-      name: q.string(),
-    })
-    .nullable(),
-  images: q
-    .sanityImage("images", {
-      withHotspot: true,
-      isList: true,
-      additionalFields: { alt: q.string().nullable() },
-      withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-    })
-    .nullable(),
-  body_thechallenge: q.contentBlocks().nullable(),
-  body_oursolution: q.contentBlocks().nullable(),
-  body_theoutcome: q.contentBlocks().nullable(),
-  testimonial: q("testimonial").grab({
-    enabled: q.boolean().nullable(),
-    testimonialText: q.string().nullable(),
-    testimonialAuthor: q.string().nullable(),
-  }),
+const serviceContent = {
+  name: q.string(),
 };
 
-export const { query: CaseStudyPageQuery, schema: CaseStudyPageSchema } = q("*")
+export const { query: ServicePageQuery, schema: ServicePageSchema } = q("*")
   .filter(
-    "_type == 'casestudy' && slug.current == $slug && !(_id in path('drafts.**'))"
+    "_type == 'service' && slug.current == $slug && !(_id in path('drafts.**'))"
   )
   .grab({
     ...pageMeta,
-    ...caseStudyContent,
+    ...serviceContent,
     ...pageBuilder,
   });
 
-export type CaseStudyContent = TypeFromSelection<typeof caseStudyContent>;
+export type serviceContent = TypeFromSelection<typeof serviceContent>;
 
 
 
-export const { query: CaseStudiesQuery, schema: CaseStudiesSchema } = q("*")
-  .filter("_type == 'casestudy'")
+export const { query: ServicesQuery, schema: ServicesSchema } = q("*")
+  .filter("_type == 'service'")
   .grab({
     slug: q.slug("slug"),
     name: q.string(),
@@ -80,8 +48,6 @@ export const { query: CaseStudiesQuery, schema: CaseStudiesSchema } = q("*")
     }),
   });
 
-
-export type CaseStudyThumbnails = z.infer<typeof CaseStudiesSchema>;
 
 
 

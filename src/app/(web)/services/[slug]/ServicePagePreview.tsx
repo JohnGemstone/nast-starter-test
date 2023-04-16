@@ -1,6 +1,6 @@
 'use client'
 
-import { usePreview } from 'lib/sanity.preview'
+import { usePreview } from '@/lib/sanity.preview'
 import { ServicePageQuery, ServicePageSchema } from '../queries'
 import ServicePage from "./ServicePage";
 import z from "zod"

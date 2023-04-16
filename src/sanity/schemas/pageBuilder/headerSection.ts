@@ -1,9 +1,11 @@
 import { TfiLayoutCtaCenter } from "react-icons/tfi";
 import { defineField, defineType, defineArrayMember } from "@sanity/types";
 
-export const featureSection = defineType({
-  name: "featureSection",
-  title: "Feature Section",
+
+
+export const headerSection = defineType({
+  name: "headerSection",
+  title: "Header Section",
   type: "object",
   icon: TfiLayoutCtaCenter,
   fields: [
@@ -14,44 +16,21 @@ export const featureSection = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "subheading",
-      title: "Subheading",
-      type: "text",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: "description",
       title: "Description",
       type: "string",
     }),
     defineField({
-      name: "image",
-      title: "Image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Alt Text",
-          type: "string",
-          description: "Alt text for the image.",
-          validation: (Rule) => Rule.required(),
-        }),
-      ],
-    }),
-    defineField({
-      name: "features",
-      title: "Features",
+      name: "links",
+      title: "Links",
       type: "array",
       validation: Rule => [
-        Rule.required().max(3).error('Maximum of Three Features'),
+        Rule.max(5).error('Maximum of Five Links'),
       ],
       of: [
         defineArrayMember({
-          name: "feature",
-          title: "Feature",
+          name: "link",
+          title: "Link",
           type: "object",
           fields: [
             defineField({
@@ -60,14 +39,37 @@ export const featureSection = defineType({
               type: "string",
             }),
             defineField({
-              name: "description",
-              title: "Description",
+              name: "url",
+              title: "URL",
+              type: "string",
+            }),
+          ],
+        }),
+      ]
+    }),
+
+    defineField({
+      name: "stats",
+      title: "Stats",
+      type: "array",
+      validation: Rule => [
+        Rule.max(5).error('Maximum of Five Stats'),
+      ],
+      of: [
+        defineArrayMember({
+          name: "stat",
+          title: "Stat",
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Name",
               type: "string",
             }),
             defineField({
-              name: "icon",
-              title: "Icon",
-              type: "iconPicker",
+              name: "value",
+              title: "Value",
+              type: "string",
             }),
           ],
         }),

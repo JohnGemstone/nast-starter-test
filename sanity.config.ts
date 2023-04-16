@@ -19,6 +19,7 @@ import { homePage } from '@/sanity/schemas/singletons/home'
 import { navigation } from '@/sanity/schemas/singletons/navigation'
 import { service } from '@/sanity/schemas/documents/service'
 import { blogPost } from '@/sanity/schemas/documents/blogpost'
+import { link } from '@/sanity/schemas/objects/link'
 
 import * as pageBuilder from '@/sanity/schemas/pageBuilder'
 
@@ -47,7 +48,10 @@ export default defineConfig({
       service,
       blogPost,
 
-      //objects
+      // objects
+      link,
+
+      // page builder
       ...Object.values(pageBuilder),
     ],
   },
