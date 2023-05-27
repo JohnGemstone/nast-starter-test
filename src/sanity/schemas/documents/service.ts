@@ -98,7 +98,7 @@ export const service = defineType({
           fields: [
             defineField({
               name: "alt",
-              title: "Alt Text",
+              title: "Alt text",
               type: "string",
               description: "Alt text for the image.",
             }),

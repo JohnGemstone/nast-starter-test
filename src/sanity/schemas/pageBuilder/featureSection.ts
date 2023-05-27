@@ -34,7 +34,7 @@ export const featureSection = defineType({
       fields: [
         defineField({
           name: "alt",
-          title: "Alt Text",
+          title: "Alt text",
           type: "string",
           description: "Alt text for the image.",
           validation: (Rule) => Rule.required(),

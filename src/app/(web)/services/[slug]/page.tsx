@@ -6,7 +6,7 @@ import { PreviewWrapper } from "@/components/preview/PreviewWrapper";
 import ServicePage from "./ServicePage";
 import { ServicePagePreview } from "./ServicePagePreview";
 import { notFound } from "next/navigation";
-import { previewData } from "next/headers";
+import { draftMode } from "next/headers";
 
 export default async function Page({
   params,

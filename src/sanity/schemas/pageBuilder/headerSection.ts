@@ -1,7 +1,8 @@
-import { TfiLayoutCtaCenter } from "react-icons/tfi";
+import { TfiLayoutCtaCenter, TfiLink } from "react-icons/tfi";
 import { defineField, defineType, defineArrayMember } from "@sanity/types";
 
-
+// Free Tailwind CSS Header Section Component
+// https://tailwindui.com/components/marketing/sections/header
 
 export const headerSection = defineType({
   name: "headerSection",
@@ -18,30 +19,34 @@ export const headerSection = defineType({
     defineField({
       name: "description",
       title: "Description",
-      type: "string",
+      type: "text",
+      rows: 4,
     }),
     defineField({
       name: "links",
       title: "Links",
       type: "array",
       validation: Rule => [
-        Rule.max(5).error('Maximum of Five Links'),
+        Rule.max(4).error('Maximum of Four Links'),
       ],
       of: [
         defineArrayMember({
           name: "link",
           title: "Link",
           type: "object",
+          icon: TfiLink,
           fields: [
             defineField({
-              name: "name",
-              title: "Name",
+              name: "label",
+              title: "Label",
               type: "string",
+              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: "url",
               title: "URL",
               type: "string",
+              validation: (Rule) => Rule.required(),
             }),
           ],
         }),
@@ -53,7 +58,7 @@ export const headerSection = defineType({
       title: "Stats",
       type: "array",
       validation: Rule => [
-        Rule.max(5).error('Maximum of Five Stats'),
+        Rule.max(4).error('Maximum of Four Stats'),
       ],
       of: [
         defineArrayMember({
@@ -75,17 +80,36 @@ export const headerSection = defineType({
         }),
       ]
     }),
+
+    defineField({
+      name: "image",
+      title: "Background Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "Alt text for the image.",
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+    }),
+
   ],
   preview: {
     select: {
-      title: "title",
+      title: "heading",
       media: "image",
     },
     prepare(selection) {
       const { title, media } = selection;
       return {
         title: title,
-        subtitle: "Feature Section",
+        subtitle: "Header Section",
         media: media || TfiLayoutCtaCenter,
       };
     },

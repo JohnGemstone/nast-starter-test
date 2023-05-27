@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva, cx } from "class-variance-authority";
 
 const variant = {
@@ -22,7 +23,7 @@ const buttonVariants = cva(
     variants: {
       variant: variant,
       size: {
-        default: "h-10 py-2 px-3.5 py-2.5",
+        default: "h-10 px-3.5 py-2.5",
         sm: "h-9 px-2 rounded-md",
         lg: "h-11 px-8 rounded-md",
       },
@@ -34,16 +35,18 @@ const buttonVariants = cva(
   }
 );
 
-const foo = buttonVariants({ variant: "destructive" });
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
     return (
-      <button
+      <Comp
         className={cx(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}

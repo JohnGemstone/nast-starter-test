@@ -18,7 +18,6 @@ export const pageMeta = {
   snippet: q.string().nullable(),
 };
 
-
 const testimonial = {
   "_type == 'testimonial'": {
     _type: q.literal("testimonial"),
@@ -34,7 +33,7 @@ const testimonial = {
 };
 
 export type Testimonial = TypeFromSelection<
-  typeof testimonial["_type == 'testimonial'"]
+  (typeof testimonial)["_type == 'testimonial'"]
 >;
 
 const simpleBanner = {
@@ -52,9 +51,8 @@ const simpleBanner = {
 };
 
 export type BannerSimple = TypeFromSelection<
-  typeof simpleBanner["_type == 'bannerSimple'"]
+  (typeof simpleBanner)["_type == 'bannerSimple'"]
 >;
-
 
 export const pageBuilder = {
   pageBuilder: q("coalesce(pageBuilder, [])")
@@ -71,12 +69,6 @@ export const pageBuilder = {
 };
 
 export type PageBuilder = TypeFromSelection<typeof pageBuilder>["pageBuilder"];
-
-
-
-
-
-
 
 // const navigation = q("*")
 //   .filter("_type == 'navigation' && !(_id in path('drafts.**'))")
@@ -130,4 +122,3 @@ export type PageBuilder = TypeFromSelection<typeof pageBuilder>["pageBuilder"];
 //   });
 
 // export type Navigation = z.infer<typeof navigation.schema>;
-

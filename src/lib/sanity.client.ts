@@ -30,3 +30,21 @@ export async function fetchFromClient({
 
   return data;
 }
+
+
+// export const sanityClient = createClient({
+//   projectId,
+//   dataset,
+//   apiVersion,
+//   useCdn,
+//   studioUrl: 'https://preview-kit-test-studio.sanity.build/',
+//   encodeSourceMapAtPath: () => true,
+// })
+
+// export const draftsClient = sanityClient.withConfig({
+//   perspective: 'previewDrafts',
+//   // required by previewDrafts
+//   apiVersion: 'X',
+//   useCdn: false,
+//   // token,
+// })
