@@ -30,6 +30,13 @@ export default function PricingSection({
             </p>
           )}
         </div>
+        {priceCards && (
+          <>
+            {priceCards.map((priceCard) => (
+              <PriceCard key={priceCard.name} {...priceCard} />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
@@ -108,7 +115,7 @@ const PriceCard = ({
   );
 };
 
-const pricingSectionGroqd = {
+export const pricingSectionGroqd = {
   "_type == 'pricingSection'": {
     _type: q.literal("pricingSection"),
     heading: q.string(),

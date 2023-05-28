@@ -1,9 +1,6 @@
 import { TfiLayoutCtaCenter, TfiLink } from "react-icons/tfi";
 import { defineField, defineType, defineArrayMember } from "@sanity/types";
 
-// Free Tailwind CSS Header Section Component
-// https://tailwindui.com/components/marketing/sections/header
-
 export const headerSection = defineType({
   name: "headerSection",
   title: "Header Section",

@@ -1,40 +1,16 @@
-import type { SectionBuilder, PageBuilder } from "@/lib/sanity.queries";
-import AccordionCenter from "./AccordionCenter";
-import AccordionWithImage from "./AccordionWithImage";
-import BannerCaseStudy from "./BannerCaseStudy";
+import { q } from "groqd";
+import type { TypeFromSelection } from "groqd";
+// import type { SectionBuilder, PageBuilder } from "@/lib/sanity.queries";
 
-import BannerSimple from "./BannerSimple";
-import FeatureSection from "./FeatureSection";
-import KeyFeaturesCard from "./KeyFeaturesCard";
-import LogoCarousel from "./LogoCarousel";
-import RelatedSection from "./RelatedSection";
-import TwoColumn from "./TwoColumn";
+import CtaSection, { ctaSectionGroqd } from "./CtaSection";
+import HeaderSection, { headerSectionGroqd } from "./HeaderSection";
+// import HeroSection from "./HeroSection";
+import PricingSection, { pricingSectionGroqd } from "./PricingSection";
+import TestimonialSection, { testimonialSectionGroqd} from "./TestimonialSection";
+
+
 
 type UnionFromUnionArray<T> = T extends (infer U)[] ? U : never;
-
-type SectionBuilderComponent = UnionFromUnionArray<SectionBuilder>;
-
-export const SectionBuilderSerializer = ({
-  component,
-}: {
-  component: SectionBuilderComponent;
-}) => {
-  if ("_type" in component) {
-    if (component._type === "bannerSimple") {
-      return (
-        <BannerSimple
-          title={component.title}
-          content={component.content}
-          cta={component.cta}
-          image={component.image}
-          key={component._key}
-        />
-      );
-    }
-  }
-  return null;
-};
-
 type PageBuilderComponent = UnionFromUnionArray<PageBuilder>;
 
 export const PageBuilderSerializer = ({
@@ -43,113 +19,54 @@ export const PageBuilderSerializer = ({
   component: PageBuilderComponent;
 }) => {
   if ("_type" in component) {
-    if (component._type === "bannerSimple") {
+    if (component._type === "ctaSection") {
       return (
-        <BannerSimple
-          title={component.title}
-          content={component.content}
-          cta={component.cta}
-          image={component.image}
-          key={component._key}
+        <CtaSection
+          {...component}
         />
       );
     }
-
-    if (component._type === "featureSection") {
+    if (component._type === "headerSection") {
       return (
-        <FeatureSection
-          sectionName={component.sectionName}
-          headerContent={component.headerContent}
-          imageGallery={component.imageGallery}
-          cta={component.cta}
-          sectionBuilder={component.sectionBuilder}
-          key={component._key}
+        <HeaderSection
+          {...component}
         />
       );
     }
-
-    if (component._type === "relatedSection") {
+    if (component._type === "pricingSection") {
       return (
-        <RelatedSection
-          titleHeader={component.titleHeader}
-          items={component.relatedItems}
-          cta={component.cta}
-          _key={component._key}
-          shaded={component.shaded}
-          type={component.type}
-          linkToPages={component.linkToPages}
+        <PricingSection
+          {...component}
         />
       );
     }
-
-    if (component._type === "bannerCaseStudy") {
+    if (component._type === "testimonialSection") {
       return (
-        <BannerCaseStudy
-          headerImage={component.caseStudy.headerImage}
-          name={component.caseStudy.name}
-          flavourText={component.caseStudy.snippet}
-          slug={component.caseStudy.slug}
-          altText={component.altText}
-          key={component._key}
-        />
-      );
-    }
-
-    if (component._type === "logoCarousel") {
-      return (
-        <LogoCarousel
-          title={component.header}
-          logos={component.logos}
-          border={component.border}
-          key={component._key}
-        />
-      );
-    }
-
-    if (component._type === "accordionCenter") {
-      return (
-        <AccordionCenter
-          headerContent={component.headerContent}
-          list={component.accordionItems}
-          key={component._key}
-        />
-      );
-    }
-
-    if (component._type === "accordionWithImage") {
-      return (
-        <AccordionWithImage
-          headerContent={component.headerContent}
-          list={component.accordionItems}
-          image={component.image}
-          altLayout={component.altLayout}
-          key={component._key}
-        />
-      );
-    }
-
-    if (component._type === "keyFeaturesCard") {
-      return (
-        <KeyFeaturesCard
-          headerContent={component.headerContent}
-          features={component.keyfeatures}
-          cta={component.cta}
-          image={component.image}
-          justfication={component.justification}
-          key={component._key}
-        />
-      );
-    }
-
-    if (component._type === "twoColumn") {
-      return (
-        <TwoColumn
-          leftColumn={component.leftColumn}
-          rightColumn={component.rightColumn}
-          key={component._key}
+        <TestimonialSection
+          {...component}
         />
       );
     }
   }
   return null;
 };
+
+
+export const pageBuilder = {
+  pageBuilder: q("coalesce(pageBuilder, [])")
+    .filter()
+    .grab$(
+      {
+        _key: q.string(),
+      },
+      {
+        ...ctaSectionGroqd,
+        ...headerSectionGroqd,
+        ...pricingSectionGroqd,
+        ...testimonialSectionGroqd
+      }
+    ),
+};
+
+export type PageBuilder = TypeFromSelection<typeof pageBuilder>["pageBuilder"];
+

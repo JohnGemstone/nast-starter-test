@@ -1,11 +1,14 @@
 import { PageBuilderSerializer } from "@/components/pageBuilder/Serializers";
-import { servicePageSchema } from "../queries";
+import { ServicePageSchema } from "../queries";
 import z from "zod";
 
-const CaseStudyPage = ({ page }: { page: z.infer<typeof servicePageSchema>[0] }) => {
+const ServicePage = ({ page }: { page: z.infer<typeof ServicePageSchema>[0] }) => {
 
   return ( 
     <main>
+      <div>
+        {page.name}
+      </div>
       {page.pageBuilder.map((item, index) => (
         <PageBuilderSerializer component={item} />
       ))}
@@ -13,4 +16,4 @@ const CaseStudyPage = ({ page }: { page: z.infer<typeof servicePageSchema>[0] })
    );
 }
  
-export default CaseStudyPage;
+export default ServicePage;

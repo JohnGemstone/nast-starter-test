@@ -1,8 +1,6 @@
 import { IoIosPricetags } from "react-icons/io";
 import { defineField, defineType } from "@sanity/types";
 
-// Free Tailwind CSS Hero Section Component
-// https://tailwindui.com/components/marketing/sections/pricing
 
 export const pricingSection = defineType({
   name: "pricingSection",

@@ -1,20 +1,45 @@
 import type { Metadata } from "next";
 import { getServiceBySlug, getServices } from "../fetch";
+import { getPreviewToken, sanityBranch } from "@/lib/sanity.server.preview";
+import { PreviewSuspense } from "next-sanity/preview";
+import { PreviewWrapper } from "@/components/preview/PreviewWrapper";
 import ServicePage from "./ServicePage";
+import { ServicePagePreview } from "./ServicePagePreview";
 import { notFound } from "next/navigation";
-
+import { draftMode } from "next/headers";
 
 export default async function Page({
   params,
 }: {
   params: { slug: string };
 }) {
+  const token = getPreviewToken();
   const data = await getServiceBySlug({ slug: params.slug });
   const page = data[0];
-  console.log("page:", page);
+  // console.log("page:", page);
 
-  if (!data) {
+  if (!data && !token) {
     notFound();
+  }
+
+  // Sanity preview
+  //
+  if (token) {
+    return (
+      <PreviewSuspense
+        fallback={
+          <PreviewWrapper>
+            <ServicePage page={page} />
+          </PreviewWrapper>
+        }
+      >
+        {token ? (
+          <ServicePagePreview token={token} slug={params.slug} />
+        ) : (
+          <ServicePage page={page} />
+        )}
+      </PreviewSuspense>
+    );
   }
 
 

@@ -4,7 +4,7 @@ import type { TypeFromSelection } from "groqd";
 // Free Tailwind CSS Testimonials Section Component
 // https://tailwindui.com/components/marketing/sections/testimonials
 
-export default function TestimonialsSection({
+export default function TestimonialSection({
   testimonial,
   author,
   title,
@@ -51,7 +51,7 @@ export default function TestimonialsSection({
   );
 }
 
-const testimonialSectionGroqd = {
+export const testimonialSectionGroqd = {
   "_type == 'testimonialSection'": {
     _type: q.literal("testimonialSection"),
     testimonial: q.string(),

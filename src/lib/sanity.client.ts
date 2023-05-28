@@ -1,4 +1,4 @@
-import "server-only";
+// import "server-only";
 
 import { apiVersion, dataset, projectId, useCdn } from "@/lib/sanity.api";
 import { cache } from "react";
@@ -25,7 +25,7 @@ export async function fetchFromClient({
   const fetch = cache(client.fetch.bind(client));
   const data = await fetch(query, params ?? {});
 
-  // await console.log("data:", data);
+  await console.log("data:", data);
   console.log("fetch", query.slice(0, 100), query.length>100?"...":"");
 
   return data;

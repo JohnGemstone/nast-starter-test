@@ -1,7 +1,7 @@
 import { fetchFromClient } from "@/lib/sanity.client";
 import { pageMeta } from "@/lib/sanity.queries";
 import { QueryParams } from "sanity";
-import { servicePageQuery,servicePageSchema,servicesQuery,servicesSchema } from "./queries";
+import { ServicePageQuery,ServicePageSchema,ServicesQuery,ServicesSchema } from "./queries";
 
 export async function getServiceBySlug({
   token,
@@ -12,13 +12,13 @@ export async function getServiceBySlug({
 }) {
 
   const params: QueryParams = { slug: slug };
-  return servicePageSchema.parse(await fetchFromClient({ token,  query: servicePageQuery, params }));
+  return ServicePageSchema.parse(await fetchFromClient({ token,  query: ServicePageQuery, params }));
 }
 
 
 export async function getServices({ token }: { token?: string }) {
-  return servicesSchema.parse(
-    await fetchFromClient({ token, query: servicesQuery })
+  return ServicesSchema.parse(
+    await fetchFromClient({ token, query: ServicesQuery })
   );
 }
 

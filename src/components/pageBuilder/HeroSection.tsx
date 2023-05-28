@@ -4,7 +4,6 @@ import { Link } from "@/components/Link";
 // Free Tailwind CSS Hero Section Component
 // https://tailwindui.com/components/marketing/sections/heroes
 
-
 export default function HeroSection({
   heading,
   description,

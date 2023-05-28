@@ -80,7 +80,7 @@ export default function HeaderSection({
   );
 }
 
-const headerSectionGroqd = {
+export const headerSectionGroqd = {
   "_type == 'headerSection'": {
     _type: q.literal("headerSection"),
     heading: q.string(),
@@ -92,7 +92,7 @@ const headerSectionGroqd = {
         url: q.string(),
       })
       .nullable(),
-    stats: q("links")
+    stats: q("stats")
       .filter()
       .grab({
         name: q.string(),

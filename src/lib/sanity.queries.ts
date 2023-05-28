@@ -18,57 +18,7 @@ export const pageMeta = {
   snippet: q.string().nullable(),
 };
 
-const testimonial = {
-  "_type == 'testimonial'": {
-    _type: q.literal("testimonial"),
-    testimonialText: q.string(),
-    testimonialAuthor: q.string(),
-    testimonialCompany: q.string(),
-    image: q.sanityImage("image", {
-      withHotspot: true,
-      additionalFields: { alt: q.string().nullable() },
-      withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-    }),
-  },
-};
 
-export type Testimonial = TypeFromSelection<
-  (typeof testimonial)["_type == 'testimonial'"]
->;
-
-const simpleBanner = {
-  "_type == 'bannerSimple'": {
-    _type: q.literal("bannerSimple"),
-    title: q.string(),
-    content: q.string(),
-    cta: q.string(),
-    image: q.sanityImage("image", {
-      withHotspot: true,
-      additionalFields: { alt: q.string().nullable() },
-      withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-    }),
-  },
-};
-
-export type BannerSimple = TypeFromSelection<
-  (typeof simpleBanner)["_type == 'bannerSimple'"]
->;
-
-export const pageBuilder = {
-  pageBuilder: q("coalesce(pageBuilder, [])")
-    .filter()
-    .grab$(
-      {
-        _key: q.string(),
-      },
-      {
-        ...simpleBanner,
-        ...testimonial,
-      }
-    ),
-};
-
-export type PageBuilder = TypeFromSelection<typeof pageBuilder>["pageBuilder"];
 
 // const navigation = q("*")
 //   .filter("_type == 'navigation' && !(_id in path('drafts.**'))")

@@ -1,7 +1,7 @@
 import { q } from "groqd";
 import type { TypeFromSelection } from "groqd";
 import { Button } from "../ui/Button";
-import { Link } from "../Link";
+import { Link, linkGroqd } from "../Link";
 
 // Free Tailwind CSS CTA Section Component
 // https://tailwindui.com/components/marketing/sections/cta-sections
@@ -10,9 +10,7 @@ export default function CtaSection({
   heading,
   description,
   image,
-  enablePrimaryLink,
   primaryLink,
-  enableSecondaryLink,
   secondaryLink,
 }: ctaSection) {
   return (
@@ -48,12 +46,12 @@ export default function CtaSection({
               </p>
             )}
             <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
-              {enablePrimaryLink && primaryLink && (
+              {primaryLink.enable && primaryLink.link && primaryLink.label && (
                 <Button asChild>
                   <Link href={primaryLink.link}>{primaryLink.label}</Link>
                 </Button>
               )}
-              {enableSecondaryLink && secondaryLink && (
+              {secondaryLink.enable && secondaryLink.link && secondaryLink.label && (
                 <Button asChild>
                   <Link href={secondaryLink.link}>{secondaryLink.label}</Link>
                 </Button>
@@ -75,25 +73,18 @@ export default function CtaSection({
   );
 }
 
-const ctaSectionGroqd = {
+
+export const ctaSectionGroqd = {
   "_type == 'ctaSection'": {
     _type: q.literal("ctaSection"),
     heading: q.string(),
     description: q.string().nullable(),
-    enablePrimaryLink: q.boolean(),
-    primaryLink: q("primaryLink")
-      .grab({
-        label: q.string(),
-        link: q.string(),
-      })
-      .nullable(),
-    enableSecondaryLink: q.boolean(),
-    secondaryLink: q("secondaryLink")
-      .grab({
-        label: q.string(),
-        link: q.string(),
-      })
-      .nullable(),
+    primaryLink: q("primaryLink").grab({
+      ...linkGroqd
+    }),
+    secondaryLink: q("secondaryLink").grab({
+      ...linkGroqd
+    }),
     image: q.sanityImage("image", {
       withHotspot: true,
       additionalFields: { alt: q.string().nullable() },
@@ -105,3 +96,5 @@ const ctaSectionGroqd = {
 export type ctaSection = TypeFromSelection<
   (typeof ctaSectionGroqd)["_type == 'ctaSection'"]
 >;
+
+

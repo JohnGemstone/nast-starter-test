@@ -1,3 +1,4 @@
+import { q } from "groqd";
 import NextLink from "next/link";
 import type { LinkProps as NextLinkProps } from "next/link";
 import { ReactNode } from "react";
@@ -16,4 +17,11 @@ export const Link = (props: LinkProps) => {
   ) : (
     <NextLink {...props} rel="noopener noreferrer" target="_blank" />
   );
+};
+
+
+export const linkGroqd = {
+  enable: q.boolean(),
+  label: q.string().nullable(),
+  link: q.string().nullable(),
 };

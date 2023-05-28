@@ -1,7 +1,8 @@
-import { pageMeta, pageBuilder } from "@/lib/sanity.queries";
+import { pageMeta } from "@/lib/sanity.queries";
 import { q, TypeFromSelection } from "groqd";
 import { QueryParams } from "sanity";
 import z from "zod";
+import { pageBuilder } from "@/components/pageBuilder/Serializers";
 
 const serviceContent = {
   name: q.string(),
@@ -26,26 +27,6 @@ export const { query: ServicesQuery, schema: ServicesSchema } = q("*")
   .grab({
     slug: q.slug("slug"),
     name: q.string(),
-    snippet: q.string(),
-    sectorTag: q.string().optional().nullable(),
-    producttags: q("producttags")
-      .filter()
-      .grab({
-        _key: q.string(),
-        label: q.string(),
-        value: q.string(),
-      })
-      .nullable(),
-    logo: q.sanityImage("logo", {
-      withHotspot: true,
-      additionalFields: { alt: q.string().nullable() },
-      withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-    }),
-    headerImage: q.sanityImage("headerImage", {
-      withHotspot: true,
-      additionalFields: { alt: q.string().nullable() },
-      withAsset: ["base", "dimensions", "lqip", "hasAlpha", "isOpaque"],
-    }),
   });
 
 
