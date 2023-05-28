@@ -19,6 +19,7 @@
     "class-variance-authority": "^0.5.1",
     "clsx": "^1.2.1",
     "groqd": "^0.9.1",
+    "groqd-playground": "^0.0.14",
     "next": "^13.4.3",
     "next-sanity": "^4.3.2",
     "postcss": "8.4.21",

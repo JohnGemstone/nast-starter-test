@@ -3,6 +3,7 @@
  */
 
 import { visionTool } from '@sanity/vision'
+import { groqdPlaygroundTool } from "groqd-playground";
 import {media} from 'sanity-plugin-media'
 
 import { previewDocumentNode } from '@/sanity/plugins/previewPane'
@@ -31,7 +32,7 @@ export const PREVIEWABLE_DOCUMENT_TYPES: string[] = [
   blogPost.name,
 ]
 
-const devOnlyPlugins = [ visionTool({ defaultApiVersion: apiVersion })]
+const devOnlyPlugins = [ visionTool({ defaultApiVersion: apiVersion }),groqdPlaygroundTool()]
 
 export default defineConfig({
   basePath: '/studio',
